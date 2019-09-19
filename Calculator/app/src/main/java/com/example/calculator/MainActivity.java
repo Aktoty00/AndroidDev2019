@@ -22,20 +22,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Button btnEqual;
     private Button btnDelete;
+    private Button btnDot;
+
     private Button btnPlus;
     private Button btnMinus;
     private Button btnMultiply;
     private Button btnDivide;
+    private Button btnSquare;
+    private Button btnSqrt;
 
     private double number1;
     private double number2;
     private double result;
 
     enum Sign {
-        PLUS, MINUS, MULTIPLY, DIVIDE
+        PLUS, MINUS, MULTIPLY, DIVIDE, SQUARE, SQRT
     }
     private Sign sign;
-
 
 
     @Override
@@ -57,6 +60,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         btnDelete = findViewById(R.id.delete);
         btnEqual = findViewById(R.id.equal);
+        btnDot = findViewById(R.id.dot);
+        btnSquare = findViewById(R.id.square);
+        btnSqrt= findViewById(R.id.sqrt);
 
         btnPlus = findViewById(R.id.plus);
         btnMinus = findViewById(R.id.minus);
@@ -76,6 +82,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         btnDelete.setOnClickListener(this);
         btnEqual.setOnClickListener(this);
+        btnDot.setOnClickListener(this);
+        btnSquare.setOnClickListener(this);
+        btnSqrt.setOnClickListener(this);
 
         btnPlus.setOnClickListener(this);
         btnMinus.setOnClickListener(this);
@@ -87,75 +96,109 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view){
         switch (view.getId()) {
             case R.id.num0: {
-                inputNumber.append("0");
+                if(inputNumber.getText().toString().startsWith("0")){
+                    inputNumber.setText("");
+                }
+                else
+                    inputNumber.append("0");
                 break;
             }
             case R.id.num1: {
+                if(inputNumber.getText().toString().startsWith("0") && !inputNumber.getText().toString().contains(".")){
+                    inputNumber.setText("");
+                }
                 inputNumber.append("1");
                 break;
             }
             case R.id.num2: {
+                if(inputNumber.getText().toString().startsWith("0") && !inputNumber.getText().toString().contains(".")){
+                    inputNumber.setText("");
+                }
                 inputNumber.append("2");
                 break;
             }
             case R.id.num3: {
+                if(inputNumber.getText().toString().startsWith("0") && !inputNumber.getText().toString().contains(".")){
+                    inputNumber.setText("");
+                }
                 inputNumber.append("3");
                 break;
             }
             case R.id.num4: {
+                if(inputNumber.getText().toString().startsWith("0") && !inputNumber.getText().toString().contains(".")){
+                    inputNumber.setText("");
+                }
                 inputNumber.append("4");
                 break;
             }
             case R.id.num5: {
+                if(inputNumber.getText().toString().startsWith("0") && !inputNumber.getText().toString().contains(".")){
+                    inputNumber.setText("");
+                }
                 inputNumber.append("5");
                 break;
             }
             case R.id.num6: {
+                if(inputNumber.getText().toString().startsWith("0") && !inputNumber.getText().toString().contains(".")){
+                    inputNumber.setText("");
+                }
                 inputNumber.append("6");
                 break;
             }
             case R.id.num7: {
+                if(inputNumber.getText().toString().startsWith("0") && !inputNumber.getText().toString().contains(".")){
+                    inputNumber.setText("");
+                }
                 inputNumber.append("7");
                 break;
             }
             case R.id.num8: {
+                if(inputNumber.getText().toString().startsWith("0") && !inputNumber.getText().toString().contains(".")){
+                    inputNumber.setText("");
+                }
                 inputNumber.append("8");
                 break;
             }
             case R.id.num9: {
+                if(inputNumber.getText().toString().startsWith("0") && !inputNumber.getText().toString().contains(".")){
+                    inputNumber.setText("");
+                }
                 inputNumber.append("9");
                 break;
             }
             case R.id.dot: {
+                if(inputNumber.getText().toString()==""){
+                    inputNumber.setText("0");
+                }
                 inputNumber.append(".");
                 break;
             }
             case R.id.plus: {
-                number1 = Integer.parseInt(inputNumber.getText().toString());
+                number1 = Double.parseDouble(inputNumber.getText().toString());
                 inputNumber.setText("");
                 sign = Sign.PLUS;
                 break;
             }
             case R.id.minus: {
-                number1 = Integer.parseInt(inputNumber.getText().toString());
+                number1 = Double.parseDouble(inputNumber.getText().toString());
                 inputNumber.setText("");
                 sign = Sign.MINUS;
                 break;
             }
             case R.id.multiply: {
-                number1 = Integer.parseInt(inputNumber.getText().toString());
+                number1 = Double.parseDouble(inputNumber.getText().toString());
                 inputNumber.setText("");
                 sign = Sign.MULTIPLY;
                 break;
             }
             case R.id.divide: {
-                number1 = Integer.parseInt(inputNumber.getText().toString());
+                number1 = Double.parseDouble(inputNumber.getText().toString());
                 inputNumber.setText("");
                 sign = Sign.DIVIDE;
                 break;
             }
             case R.id.equal: {
-                number2 = Integer.parseInt(inputNumber.getText().toString());
+                number2 = Double.parseDouble(inputNumber.getText().toString());
                 if (sign == Sign.PLUS) {
                     result = number1 + number2;
                 }
@@ -172,7 +215,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             }
             case R.id.delete: {
-                inputNumber.setText("0");
+                inputNumber.setText("");
+                break;
+            }
+            case R.id.square: {
+                number1 = Integer.parseInt(inputNumber.getText().toString());
+                result = number1*number1;
+                inputNumber.setText(String.valueOf(result));
+                break;
+            }
+            case R.id.sqrt: {
+                number1 = Double.parseDouble(inputNumber.getText().toString());
+                result = Math.sqrt(number1);
+                inputNumber.setText(String.valueOf(result));
                 break;
             }
         }
