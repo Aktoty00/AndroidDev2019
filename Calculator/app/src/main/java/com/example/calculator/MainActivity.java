@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             case R.id.num0: {
                 if(inputNumber.getText().toString().startsWith("0")){
-                    inputNumber.setText("");
+                    inputNumber.setText("0");
                 }
                 else
                     inputNumber.append("0");
@@ -211,7 +211,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (sign == Sign.DIVIDE) {
                     result = number1 / number2;
                 }
-                inputNumber.setText(String.valueOf(result));
+                if(result-(int)result==0) {
+                    inputNumber.setText(String.valueOf((int)result));
+                }
+                else
+                    inputNumber.setText(String.valueOf(result));
                 break;
             }
             case R.id.delete: {
