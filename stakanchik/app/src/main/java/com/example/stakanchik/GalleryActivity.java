@@ -46,7 +46,7 @@ public class GalleryActivity extends AppCompatActivity {
         final TextView full_imageName = findViewById(R.id.full_album_title);
         TextView full_imageDescription = findViewById(R.id.full_album_description);
         TextView full_imageDateTime = findViewById(R.id.full_album_datetime);
-
+        
         full_image.setImageResource(image);
         full_imageName.setText(imageName);
         full_imageDescription.setText(imageShortDescription);
