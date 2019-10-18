@@ -90,12 +90,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 numIsPressed=true;
                 operationIsPressed=false;
                 initialState = false;
-
-                if(dividedBeZero){
+                String s = inputNumber.getText().toString();
+                if(dividedBeZero ||  s.equals("Infinity") || s.equals("error") || s.equals("NaN")){
                     inputNumber.setText("");
                     dividedBeZero=false;
                 }
-                if(inputNumber.getText().toString().startsWith("0")){
+                if(inputNumber.getText().toString().startsWith("0") && !inputNumber.getText().toString().contains(".")){
                     inputNumber.setText("0");
                 }
                 else
@@ -106,7 +106,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 numIsPressed=true;
                 operationIsPressed=false;
                 initialState = false;
-                if(dividedBeZero){
+                String s = inputNumber.getText().toString();
+                if(dividedBeZero ||  s.equals("Infinity") || s.equals("error") || s.equals("NaN")){
                     inputNumber.setText("");
                     dividedBeZero=false;
                 }
@@ -121,7 +122,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 numIsPressed=true;
                 operationIsPressed=false;
 
-                if(dividedBeZero){
+                String s = inputNumber.getText().toString();
+                if(dividedBeZero ||  s.equals("Infinity") || s.equals("error") || s.equals("NaN")){
                     inputNumber.setText("");
                     dividedBeZero=false;
                 }
@@ -135,7 +137,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 numIsPressed=true;
                 initialState = false;
                 operationIsPressed=false;
-                if(dividedBeZero){
+                String s = inputNumber.getText().toString();
+                if(dividedBeZero ||  s.equals("Infinity") || s.equals("error") || s.equals("NaN")){
                     inputNumber.setText("");
                     dividedBeZero=false;
                 }
@@ -149,7 +152,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 numIsPressed=true;
                 initialState = false;
                 operationIsPressed=false;
-                if(dividedBeZero){
+                String s = inputNumber.getText().toString();
+                if(dividedBeZero ||  s.equals("Infinity") || s.equals("error") || s.equals("NaN")){
                     inputNumber.setText("");
                     dividedBeZero=false;
                 }
@@ -163,7 +167,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 numIsPressed=true;
                 initialState = false;
                 operationIsPressed=false;
-                if(dividedBeZero){
+                String s = inputNumber.getText().toString();
+                if(dividedBeZero ||  s.equals("Infinity") || s.equals("error") || s.equals("NaN")){
                     inputNumber.setText("");
                     dividedBeZero=false;
                 }
@@ -177,7 +182,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 numIsPressed=true;
                 initialState = false;
                 operationIsPressed=false;
-                if(dividedBeZero){
+                String s = inputNumber.getText().toString();
+                if(dividedBeZero ||  s.equals("Infinity") || s.equals("error") || s.equals("NaN")){
                     inputNumber.setText("");
                     dividedBeZero=false;
                 }
@@ -191,7 +197,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 numIsPressed=true;
                 initialState = false;
                 operationIsPressed=false;
-                if(dividedBeZero){
+                String s = inputNumber.getText().toString();
+                if(dividedBeZero ||  s.equals("Infinity") || s.equals("error") || s.equals("NaN")){
                     inputNumber.setText("");
                 }
                 if(inputNumber.getText().toString().startsWith("0") && !inputNumber.getText().toString().contains(".")){
@@ -205,7 +212,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 numIsPressed=true;
                 initialState = false;
                 operationIsPressed=false;
-                if(dividedBeZero){
+                String s = inputNumber.getText().toString();
+                if(dividedBeZero ||  s.equals("Infinity") || s.equals("error") || s.equals("NaN")){
                     inputNumber.setText("");
                     dividedBeZero=false;
                 }
@@ -219,7 +227,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 initialState = false;
                 numIsPressed=true;
                 operationIsPressed=false;
-                if(dividedBeZero){
+                String s = inputNumber.getText().toString();
+                if(dividedBeZero ||  s.equals("Infinity") || s.equals("error") || s.equals("NaN")){
                     inputNumber.setText("");
                     dividedBeZero=false;
                 }
@@ -255,7 +264,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 numIsPressed=false;
                 operationIsPressed=false;
                 String s = inputNumber.getText().toString();
-                if(dividedBeZero){
+                if(dividedBeZero|| s.equals("Infinity") || s.equals("error") || s.equals("NaN")  ){
                     inputNumber.setText("");
                     dividedBeZero=false;
                     break;
@@ -451,7 +460,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         operationIsPressed=savedInstanceState.getBoolean("operationIsPressed");
         initialState=savedInstanceState.getBoolean("initialState");
         dividedBeZero=savedInstanceState.getBoolean("dividedBeZero");
-//        sign=savedInstanceState.getString("sign");
+        sign = (Sign) savedInstanceState.getSerializable("sign");
     }
 
     @Override
@@ -465,6 +474,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         outState.putBoolean("operationIsPressed", operationIsPressed);
         outState.putBoolean("dividedBeZero", dividedBeZero);
         outState.putBoolean("initialState", initialState);
-//        outState.putSerializable("sign", sign);
+        outState.putSerializable("sign", sign);
     }
 }
