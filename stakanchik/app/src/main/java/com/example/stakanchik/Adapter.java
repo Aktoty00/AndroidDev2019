@@ -1,5 +1,4 @@
 package com.example.stakanchik;
-
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -9,86 +8,63 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.squareup.picasso.Picasso;
+import java.util.List;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
+public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
+    static List<ListItem> listItems;
+    static Context myContext;
 
-public class Adapter extends RecyclerView.Adapter<Adapter.ImageViewHolder> {
-    ArrayList<Integer> images;
-    ArrayList<String> imageNames;
-    ArrayList<String> imagesShortDescription;
-    ImageButton shareButton;
-    Context myContext;
-
-    public Adapter(ArrayList<Integer> images, ArrayList<String> imageNames, ArrayList<String> imagesShortDescription, ImageButton shareButton, Context myContext) {
-        this.images = images;
-        this.imageNames = imageNames;
-        this.imagesShortDescription = imagesShortDescription;
-        this.shareButton = shareButton;
+    public Adapter(List<ListItem> listItems, Context myContext) {
+        this.listItems = listItems;
         this.myContext = myContext;
     }
 
     @NonNull
     @Override
-    public ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.album_layout, parent, false);
-        ImageViewHolder imageViewHolder = new ImageViewHolder(view);
-        return imageViewHolder;
+        ViewHolder ViewHolder = new ViewHolder(view);
+        return ViewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ImageViewHolder holder, final int position) {
-        holder.Album.setImageResource(images.get(position));
-        holder.AlbumTitle.setText(imageNames.get(position));
-        holder.AlbumDescription.setText(imagesShortDescription.get(position));
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
+        final ListItem listItem = listItems.get(position);
+        holder.AlbumTitle.setText(listItem.getTitle());
+        holder.AlbumDescription.setText(listItem.getDescriptioin());
+        holder.AlbumDateTime.setText(listItem.getDateTime());
+        Picasso.with(myContext)
+            .load(listItem.getImageURL())
+            .into(holder.Album);
 
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat timeStampFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-        final String currentDateTime = timeStampFormat.format(calendar.getTime());
-
-        holder.AlbumDateTime.setText(currentDateTime);
         holder.AlbumShareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
                 shareIntent.setType("text/plain");
-                String shareBody = imageNames.get(position);
-                String shareSub = imagesShortDescription.get(position);
-                shareIntent.putExtra(Intent.EXTRA_TEXT, shareBody + "\n" + shareSub);
+                String shareBody = listItem.getTitle();
+                String shareSub = listItem.getDescriptioin();
+                shareIntent.putExtra(Intent.EXTRA_TEXT, shareBody + "\n\n" + shareSub);
                 myContext.startActivity(Intent.createChooser(shareIntent, "Share using"));
-            }
-        });
-        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(myContext, GalleryActivity.class);
-                intent.putExtra("images", images.get(position));
-                intent.putExtra("imageNames", imageNames.get(position));
-                intent.putExtra("imageShortDescription", imagesShortDescription.get(position));
-                intent.putExtra("imageDateTime", currentDateTime);
-                myContext.startActivity(intent);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return imageNames.size();
+        return listItems.size();
     }
 
-    public static class ImageViewHolder extends RecyclerView.ViewHolder
+    public static class ViewHolder extends RecyclerView.ViewHolder
     {
         ImageView Album;
-        TextView AlbumTitle;
-        TextView AlbumDescription;
-        TextView AlbumDateTime;
+        TextView AlbumTitle, AlbumDescription, AlbumDateTime;
         ImageButton AlbumShareButton;
         LinearLayout parentLayout;
-        public ImageViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
             Album = itemView.findViewById(R.id.album);
             AlbumTitle = itemView.findViewById(R.id.album_title);
@@ -96,6 +72,33 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ImageViewHolder> {
             AlbumDateTime = itemView.findViewById(R.id.album_datetime);
             AlbumShareButton = itemView.findViewById(R.id.share_button);
             parentLayout = itemView.findViewById(R.id.parent_layout);
+
+            parentLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition();
+                    if(pos != RecyclerView.NO_POSITION){
+                        Intent intent = new Intent(myContext, GalleryActivity.class);
+                        intent.putExtra("image", listItems.get(pos).getImageURL());
+                        intent.putExtra("imageName", listItems.get(pos).getTitle());
+                        intent.putExtra("imageDescription", listItems.get(pos).getDescriptioin());
+                        intent.putExtra("content", listItems.get(pos).getContent());
+                        intent.putExtra("imageDateTime", listItems.get(pos).getDateTime());
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        myContext.startActivity(intent);
+                    }
+                }
+            });
         }
     }
 }
+
+
+/*
+    SimpleDateFormat sd1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+    Date dt = sd1.parse(myString);
+
+        SimpleDateFormat sd2 = new SimpleDateFormat("yyyy-MM-dd");
+        String newDate = sd2.format(dt);
+        System.out.println(newDate);
+ */
