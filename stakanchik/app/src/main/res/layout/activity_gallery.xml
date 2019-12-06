@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/scroll"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
     <LinearLayout
         android:orientation="vertical"
@@ -11,7 +12,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/full_parent_layout"
         android:padding="10dp"
-        android:background="@drawable/background_image">
+        android:background="@drawable/background">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -22,7 +23,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_weight="92">
+                android:layout_weight="92"
+                android:paddingRight="8dp"
+                android:paddingEnd="8dp">
                 <TextView
                     android:id="@+id/full_album_title"
                     android:layout_width="wrap_content"
@@ -40,8 +43,8 @@
             </LinearLayout>
             <ImageButton
                 android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:background="@drawable/share"
+                android:layout_height="40dp"
+                android:background="@drawable/sharebutton"
                 android:layout_weight="8"
                 android:layout_marginTop="10dp"
                 android:id="@+id/full_share_button"

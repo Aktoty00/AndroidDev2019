@@ -32,6 +32,7 @@ public class GalleryActivity extends AppCompatActivity {
                     .into(full_image);
 
             final String imageName = getIntent().getStringExtra("imageName");
+            final String imageDescription = getIntent().getStringExtra("imageDescription");
             final String mycontent = getIntent().getStringExtra("content");
             final String imageDateTime = getIntent().getStringExtra("imageDateTime");
             ImageButton share_button = findViewById(R.id.full_share_button);
@@ -40,20 +41,20 @@ public class GalleryActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     Intent shareIntent = new Intent(Intent.ACTION_SEND);
                     shareIntent.setType("text/plain");
-                    shareIntent.putExtra(Intent.EXTRA_TEXT, imageName + "\n\n" + mycontent);
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, imageName + "\n\n" + imageDescription + "\n" + mycontent);
                     startActivity(Intent.createChooser(shareIntent, "Share using"));
                 }
             });
-            setImage(imageName, mycontent, imageDateTime);
+            setImage(imageName, imageDescription, mycontent, imageDateTime);
         }
     }
-    private void setImage(String imageName, String mycontent, String imageDateTime){
+    private void setImage(String imageName, String imageDescription, String mycontent, String imageDateTime){
         final TextView full_imageName = findViewById(R.id.full_album_title);
         TextView full_imageDescription = findViewById(R.id.full_album_description);
         TextView full_imageDateTime = findViewById(R.id.full_album_datetime);
 
         full_imageName.setText(imageName);
-        full_imageDescription.setText(mycontent);
+        full_imageDescription.setText(imageDescription + "\n\n" + mycontent);
         full_imageDateTime.setText(imageDateTime);
     }
 }
