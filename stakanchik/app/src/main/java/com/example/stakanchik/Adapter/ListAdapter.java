@@ -7,12 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.stakanchik.GalleryActivity;
 import com.example.stakanchik.databinding.ListItemsBinding;
 import com.example.stakanchik.viewmodels.ListViewModel;
 import com.squareup.picasso.Picasso;
-
 import java.util.List;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyAdaper> {
@@ -63,7 +61,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyAdaper> {
     public class MyAdaper extends RecyclerView.ViewHolder {
         private ListItemsBinding listItemsBinding;
 
-
         public MyAdaper(ListItemsBinding listItemsBinding) {
             super(listItemsBinding.getRoot());
             this.listItemsBinding=listItemsBinding;
@@ -87,10 +84,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyAdaper> {
         }
         public void bind(ListViewModel listViewModel){
             this.listItemsBinding.setViewModel(listViewModel);
-        }
-
-        public ListItemsBinding getListItemsBinding(){
-            return listItemsBinding;
         }
     }
 }
